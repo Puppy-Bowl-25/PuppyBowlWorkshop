@@ -1,33 +1,64 @@
 import React from "react";
-import { useState } from "react";
-import { useEffect } from "react";
-import { fetchAllPlayers } from "../API";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { fetchAllPlayers, deletePlayer } from "../API/index.js";
 
 const AllPlayers = () => {
   const [players, setPlayers] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getPlayers = async () => {
-      const playersData = await fetchAllPlayers();
-      setPlayers(playersData);
-    };
+      try {
+        const playersData = await fetchAllPlayers();
+        console.log("Fetched players:", playersData);
+        setPlayers(playersData);
+      } catch (error) {
+        console.error("Failed to fetch players:", error);
+      }
+    }
 
     getPlayers();
   }, []);
 
+  const handleDelete = async (playerId) => {
+    const confirmDelete = window.confirm("Are you sure you want to delete this player?");
+    if (!confirmDelete) return;
+    try {
+      const success = await deletePlayer(playerId);
+      if (success) {
+        setPlayers(players.filter(player => player.id !== playerId));
+        alert("Player deleted successfully!");
+      } else {
+      alert("Failed to delete player. Please try again.");
+      } 
+    } catch (error) {
+      console.error("Error deleting player:", error);
+    }
+    };
+
   return (
     <div>
       <h1>All Players</h1>
-      {players.length > 0 ? (
-        players.map((player) => (
-          <div key={player.id}>
-            <h4>{player.name}</h4>
-            <p>{player.team}</p>
-          </div>
-        ))
-      ) : (
-        <p>Loading players...</p>
-      )}
+      <div className="players-container">
+        {players.length > 0 ? (
+          players.map((player) => (
+            <div key={player.id} className="player-card">
+              <img src={player.imageUrl} alt={`Image of ${player.name}`} />
+              <h4>{player.name}</h4>
+              <p>{player.breed}</p>
+              <button type="button" onClick={() => navigate(`/players/${player.id}`)}>
+                See Player Details
+              </button>
+              <button type="button" onClick={() => handleDelete(player.id)}>
+                Delete Player
+              </button>
+            </div>
+          ))
+        ) : (
+            <p>Loading players...</p>
+        )}
+      </div>
     </div>
   );
 };
