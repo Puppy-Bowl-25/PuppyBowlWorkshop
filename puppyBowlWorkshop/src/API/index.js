@@ -50,3 +50,21 @@ export async function createPlayer(playerData) {
     return null;
   }
 }
+
+
+// delete player from API
+export async function deletePlayer(playerId) {
+  try {
+    const response = await fetch(`${API_URL}/${playerId}`, {
+      method: "DELETE",
+    });
+    if (!response.ok) {
+      throw new Error("Player could not be deleted.");
+    }
+    return true;
+  } catch (error) {
+    console.error("Failed to delete player:", error);
+    return false;
+  }
+}
+
