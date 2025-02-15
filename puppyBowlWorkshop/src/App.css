@@ -5,6 +5,39 @@
   text-align: center;
 }
 
+img {
+  width: 100%;
+  max-width: max-content;
+}
+/* add grid to make a table  */
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+label {
+  margin-bottom: 10px;
+}
+
+nav a {
+  display: block;
+  padding: 1em;
+  margin: 1em;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  text-decoration: none;
+  color: #333;
+  background-color: #f4f4f4;
+  transition: background-color 300ms;
+}
+
+.players-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
 .logo {
   height: 6em;
   padding: 1.5em;
