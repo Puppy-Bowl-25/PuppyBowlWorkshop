@@ -10,6 +10,7 @@ function SearchBar({ onSearch }) {
   const handleSearch = () => {
     if (onSearch) {
       onSearch(query);
+      setQuery("");
     }
   };
 
