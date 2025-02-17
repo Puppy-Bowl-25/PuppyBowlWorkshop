@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { fetchAllPlayers, deletePlayer } from "../API/index.js";
 
-const AllPlayers = () => {
+const AllPlayers = ({ searchQuery }) => {
   const [players, setPlayers] = useState([]);
   const navigate = useNavigate();
 
@@ -21,10 +21,17 @@ const AllPlayers = () => {
     getPlayers();
   }, []);
 
+  let filteredPlayers = players;
+  if (searchQuery) {
+    filteredPlayers = players.filter((player) => {
+      const playerName = player.name.toLowerCase();
+      const query = searchQuery.toLowerCase();
+      return playerName.includes(query);
+    });
+  }
+
   const handleDelete = async (playerId) => {
-    const confirmDelete = window.confirm(
-      "Are you sure you want to delete this player?"
-    );
+    const confirmDelete = window.confirm("Are you sure you want to delete this player?");
     if (!confirmDelete) return;
     try {
       const success = await deletePlayer(playerId);
@@ -42,20 +49,17 @@ const AllPlayers = () => {
   return (
     <div>
       <h1>All Players</h1>
-      <div className="players-container">
-        {players.length > 0 ? (
-          players.map((player) => (
-            <div key={player.id} className="player-card">
+      <div className='players-container'>
+        {filteredPlayers.length > 0 ? (
+          filteredPlayers.map((player) => (
+            <div key={player.id} className='player-card'>
               <img src={player.imageUrl} alt={`Image of ${player.name}`} />
               <h4>{player.name}</h4>
               <p>{player.breed}</p>
-              <button
-                type="button"
-                onClick={() => navigate(`/players/${player.id}`)}
-              >
+              <button type='button' onClick={() => navigate(`/players/${player.id}`)}>
                 See Player Details
               </button>
-              <button type="button" onClick={() => handleDelete(player.id)}>
+              <button type='button' onClick={() => handleDelete(player.id)}>
                 Delete Player
               </button>
             </div>
@@ -68,24 +72,24 @@ const AllPlayers = () => {
   );
 };
 
-function AllPlayers({ searchQuery }) {
-  const [players, setPlayers] = useState([]);
+// function AllPlayers({ searchQuery }) {
+//   const [players, setPlayers] = useState([]);
 
-  useEffect(() => {
-    // Used to gather the players data from your API or data source
-  }, []);
+//   useEffect(() => {
+//     // Used to gather the players data from your API or data source
+//   }, []);
 
-  const filteredPlayers = players.filter((player) =>
-    player.name.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+//   const filteredPlayers = players.filter((player) =>
+//     player.name.toLowerCase().includes(searchQuery.toLowerCase())
+//   );
 
-  return (
-    <div>
-      {filteredPlayers.map((player) => (
-        <div key={player.id}>{player.name}</div>
-      ))}
-    </div>
-  );
-}
+//   return (
+//     <div>
+//       {filteredPlayers.map((player) => (
+//         <div key={player.id}>{player.name}</div>
+//       ))}
+//     </div>
+//   );
+// }
 
 export default AllPlayers;
