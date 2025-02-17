@@ -31,7 +31,9 @@ export default function SinglePlayer() {
           <div key={player.id} className='player-card'>
             <img src={player.imageUrl} alt={`Image of ${player.name}`} />
             <h4>{player.name}</h4>
-            <p>{player.breed}</p>
+            <p>Breed: {player.breed}</p>
+            <p>Player ID: {player.id}</p>
+            <p>Status: {player.status}</p>
             <button type='button' onClick={() => navigate("/")}>
               Back to All Players
             </button>

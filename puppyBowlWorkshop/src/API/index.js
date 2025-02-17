@@ -37,14 +37,22 @@ export async function createPlayer(playerData) {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(playerData),
+      body: JSON.stringify({
+        name: playerData.name,
+        breed: playerData.breed,
+        imageUrl: playerData.imageUrl,
+      }),
     });
 
     if (!response.ok) {
-      throw new Error("Failed to add player");
+      const errorText = await response.text();
+      throw new Error(`Failed to add player: ${errorText}`);
     }
+
     const data = await response.json();
-    return data.data.player;
+    console.log("Parsed API response:", data);
+
+    return data;
   } catch (error) {
     console.error("Failed to add player:", error);
     return null;

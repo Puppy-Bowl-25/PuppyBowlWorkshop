@@ -7,7 +7,6 @@ const NewPlayerForm = () => {
   const [name, setName] = useState("");
   const [imageUrl, setImageUrl] = useState("");
   const [breed, setBreed] = useState("");
-  const [error, setError] = useState(null);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -15,23 +14,30 @@ const NewPlayerForm = () => {
 
     const newPlayer = { 
       name, 
+      breed,
       imageUrl, 
-      breed, 
     };
-    console.log("New player:", JSON.stringify(newPlayer, null, 2));
+    // console.log("New player:", JSON.stringify(newPlayer, null, 2));
 
     try {
-      const createdPlayer = await createPlayer(newPlayer);
-      console.log("Created player:", createdPlayer);
-      if (createdPlayer) {
-        alert("Player created successfully!");
-        navigate("/");
-      } else {
-        setError("Failed to create player. Please try again.");
+      const response = await createPlayer(newPlayer);
+      // console.log("Full API response:", response);
+      // const createdPlayer = response?.data?.newPlayer;
+      // console.log("Player object:", createdPlayer);
+      const createdPlayer = response?.data?.newPlayer;
+
+      if (!createdPlayer|| !createdPlayer.id) {
+        console.error("Invalid player object returned from API", response?.data);
+        alert("Failed to create player. Please check the console.");
+        return;
       }
+
+
+      alert(`Player "${createdPlayer.name}" created successfully!`);
+      navigate(`/players/${createdPlayer.id}`);
     } catch (error) {
-      console.error("Error creating player:", error);
-      setError("Failed to create player. Please try again.");
+        console.error("Error creating player:", error);
+        alert("Failed to create player. Please try again.");
     }
   };
 
@@ -39,22 +45,12 @@ const NewPlayerForm = () => {
     <div>
       <form onSubmit={handleSubmit}>
       <h2>Add New Player</h2>
-      {error && <p style={{ color: "red" }}>{error}</p>}
         <label>
           Name:
           <input
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            required
-          />
-        </label>
-        <label>
-          Image URL:
-          <input
-            type="text"
-            value={imageUrl}
-            onChange={(e) => setImageUrl(e.target.value)}
             required
           />
         </label>
@@ -67,7 +63,15 @@ const NewPlayerForm = () => {
             required
           />
         </label>
-
+        <label>
+          Image URL:
+          <input
+            type="text"
+            value={imageUrl}
+            onChange={(e) => setImageUrl(e.target.value)}
+            required
+          />
+        </label>
         <button type="submit">Add Player</button>
       </form>
     </div>
