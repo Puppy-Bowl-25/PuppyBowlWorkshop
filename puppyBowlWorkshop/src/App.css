@@ -9,29 +9,19 @@ img {
   width: 100%;
   max-width: max-content;
 }
-/* add grid to make a table  */
-nav {
-  position: sticky;
-  top: 0;
-  bottom: 0;
-  width: 100vw;
-  display: flex;
-  z-index: 1000;
-  justify-content: center;
-  background-color: #be9f87;
-  padding: 15px 0;
-  gap: 10px;
-}
 
 label {
   margin-bottom: 10px;
 }
 
 .navbar {
-  position: sticky;
+  position: fixed;
   top: 0;
-  width: 100vw;
+  left: 0;
+  width: 100%;
+  height: 70px;
   display: flex;
+  align-items: center;
   padding: 10px 10px;
   justify-content: space-between;
   background-color: #be9f87;
@@ -152,7 +142,7 @@ form {
   background-color: #be9f87;
   padding: 20px;
   border-radius: 10px;
-  margin: 20px auto;
+  margin: 150px auto;
   text-align: center;
   display: flex;
   flex-direction: column;
