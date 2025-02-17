@@ -16,26 +16,28 @@ const AllPlayers = () => {
       } catch (error) {
         console.error("Failed to fetch players:", error);
       }
-    }
+    };
 
     getPlayers();
   }, []);
 
   const handleDelete = async (playerId) => {
-    const confirmDelete = window.confirm("Are you sure you want to delete this player?");
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this player?"
+    );
     if (!confirmDelete) return;
     try {
       const success = await deletePlayer(playerId);
       if (success) {
-        setPlayers(players.filter(player => player.id !== playerId));
+        setPlayers(players.filter((player) => player.id !== playerId));
         alert("Player deleted successfully!");
       } else {
-      alert("Failed to delete player. Please try again.");
-      } 
+        alert("Failed to delete player. Please try again.");
+      }
     } catch (error) {
       console.error("Error deleting player:", error);
     }
-    };
+  };
 
   return (
     <div>
@@ -47,7 +49,10 @@ const AllPlayers = () => {
               <img src={player.imageUrl} alt={`Image of ${player.name}`} />
               <h4>{player.name}</h4>
               <p>{player.breed}</p>
-              <button type="button" onClick={() => navigate(`/players/${player.id}`)}>
+              <button
+                type="button"
+                onClick={() => navigate(`/players/${player.id}`)}
+              >
                 See Player Details
               </button>
               <button type="button" onClick={() => handleDelete(player.id)}>
@@ -56,11 +61,31 @@ const AllPlayers = () => {
             </div>
           ))
         ) : (
-            <p>Loading players...</p>
+          <p>Loading players...</p>
         )}
       </div>
     </div>
   );
 };
+
+function AllPlayers({ searchQuery }) {
+  const [players, setPlayers] = useState([]);
+
+  useEffect(() => {
+    // Used to gather the players data from your API or data source
+  }, []);
+
+  const filteredPlayers = players.filter((player) =>
+    player.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  return (
+    <div>
+      {filteredPlayers.map((player) => (
+        <div key={player.id}>{player.name}</div>
+      ))}
+    </div>
+  );
+}
 
 export default AllPlayers;
