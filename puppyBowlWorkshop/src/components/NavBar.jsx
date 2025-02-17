@@ -1,18 +1,21 @@
 import { Link } from "react-router-dom";
+import SearchBar from "./SearchBar";
 
-const NavBar = ({ clearSearch }) => {
+const NavBar = ({ onSearch, clearSearch }) => {
   const handleClick = () => {
     if (clearSearch) {
       clearSearch();
     }
   };
+
   return (
-    <nav>
-      <Link to='/' onClick={handleClick}>
-        All Players
-      </Link>
-      {/* <Link to='/players/:id'>Single Player</Link> */}
-      <Link to='/new-player'>Add New Player</Link>
+    <nav className="navbar">
+      <h1 className="title">Puppy Bowl</h1>
+      <SearchBar onSearch={onSearch} />
+      <div className="nav-links">
+        <Link to='/' onClick={handleClick}>Player Roster</Link>
+        <Link to='/new-player'>Add New Player</Link>
+      </div>
     </nav>
   );
 };

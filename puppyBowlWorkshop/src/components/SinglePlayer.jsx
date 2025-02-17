@@ -26,9 +26,9 @@ export default function SinglePlayer() {
   return (
     <div>
       <h1>Single Player</h1>
-      <div className='player-container'>
+      <div className='single-player-container'>
         {player ? (
-          <div key={player.id} className='player-card'>
+          <div key={player.id} className='single-player-card'>
             <img src={player.imageUrl} alt={`Image of ${player.name}`} />
             <h4>{player.name}</h4>
             <p>Breed: {player.breed}</p>

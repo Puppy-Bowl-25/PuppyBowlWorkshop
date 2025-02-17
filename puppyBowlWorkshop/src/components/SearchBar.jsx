@@ -8,11 +8,13 @@ function SearchBar({ onSearch }) {
   };
 
   const handleSearch = () => {
-    onSearch(query);
+    if (onSearch) {
+      onSearch(query);
+    }
   };
 
   return (
-    <div>
+    <div className="search-container">
       <input type='text' value={query} onChange={handleInputChange} placeholder='Search...' />
       <button onClick={handleSearch}>Search</button>
     </div>
