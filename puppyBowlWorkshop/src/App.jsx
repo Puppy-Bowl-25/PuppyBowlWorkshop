@@ -15,15 +15,19 @@ function App() {
     // Incorporate search logic here
   };
 
+  const clearSearch = () => {
+    setSearchQuery("");
+  };
+
   return (
     <>
       <BrowserRouter>
-        <NavBar />
+        <NavBar clearSearch={clearSearch} />
         <SearchBar onSearch={handleSearch} />
         <Routes>
-          <Route path="/" element={<AllPlayers searchQuery={searchQuery} />} />
-          <Route path="/players/:id" element={<SinglePlayer />} />
-          <Route path="/new-player" element={<NewPlayerForm />} />
+          <Route path='/' element={<AllPlayers searchQuery={searchQuery} />} />
+          <Route path='/players/:id' element={<SinglePlayer />} />
+          <Route path='/new-player' element={<NewPlayerForm />} />
         </Routes>
       </BrowserRouter>
     </>

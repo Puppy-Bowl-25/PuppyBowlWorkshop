@@ -13,12 +13,7 @@ function SearchBar({ onSearch }) {
 
   return (
     <div>
-      <input
-        type="text"
-        value={query}
-        onChange={handleInputChange}
-        placeholder="Search..."
-      />
+      <input type='text' value={query} onChange={handleInputChange} placeholder='Search...' />
       <button onClick={handleSearch}>Search</button>
     </div>
   );
