@@ -50,7 +50,6 @@ export async function createPlayer(playerData) {
     }
 
     const data = await response.json();
-    console.log("Parsed API response:", data);
 
     return data;
   } catch (error) {

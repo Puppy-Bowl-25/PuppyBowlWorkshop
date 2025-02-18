@@ -1,7 +1,7 @@
 #root {
-  max-width: 1280px;
+  max-width: 100%;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 0;
   text-align: center;
 }
 
@@ -9,39 +9,226 @@ img {
   width: 100%;
   max-width: max-content;
 }
-/* add grid to make a table  */
-nav {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}
 
 label {
   margin-bottom: 10px;
 }
 
-nav a {
-  display: block;
-  padding: 1em;
-  margin: 1em;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+  justify-content: space-between;
+  background-color: #be9f87;
+  z-index: 1000;
+}
+
+.title {
+  font-family: copperplate, sans-serif;
+  font-size: 3em;
+  color: white;
+  margin: 0;
+  font-weight: bold;
+}
+
+.nav-links {
+  display: flex;
+  gap: 20px;
+  margin-right: 30px;
+}
+
+.nav-links a {
+  padding: 10px 15px;
+  font-weight: bold;
   text-decoration: none;
-  color: #333;
-  background-color: #f4f4f4;
-  transition: background-color 300ms;
+  color: white;
+  background-color: #a98467;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.nav-links a:hover {
+  background-color: #987961;
+}
+
+h1 {
+  font-family: copperplate, sans-serif;
+  font-size: 4em;
 }
 
 .players-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 20px;
+  gap: 40px;
+  padding: 20px;
+  justify-content: center;
 }
 
-.card {
-  padding: 2em;
+.player-card {
+  background-color: #be9f87;
+  color: white;
+  border-radius: 10px;
+  padding: 15px;
+  text-align: center;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.read-the-docs {
-  color: #888;
+.player-card:hover, .single-player-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.player-card img, .single-player-card img {
+  width: 100%;
+  max-height: 300px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.player-card h4, .single-player-card h4 {
+  font-size: 1.4em;
+  margin: 10px 0;
+}
+
+.player-card p, .single-player-card p {
+  font-size: 1.1em;
+  margin: 10px 0;
+}
+
+.player-card button, .single-player-card button {
+  margin-top: 10px;
+  width: 100%;
+  background-color: #a98467;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  color: white;
+  transition: background-color 0.3s ease;
+}
+
+.player-card button:hover, .single-player-card button:hover {
+  background-color: #987961;
+}
+
+.single-player-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: auto;
+  padding: 50px 0;
+}
+
+.single-player-card {
+  background-color: #be9f87;
+  color: white;
+  border-radius: 10px;
+  padding: 15px;
+  text-align: center;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  width: 300px;
+  max-width: 90%;
+}
+
+form {
+  background-color: #be9f87;
+  padding: 20px;
+  border-radius: 10px;
+  margin: 150px auto;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 350px;
+}
+
+form label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 1.1em;
+  color: white;
+  width: 100%;
+  text-align: left;
+  font-weight: bold;
+}
+
+form input {
+  width: 95%;
+  padding: 10px;
+  margin-top: 5px;
+  border: none;
+  border-radius: 5px;
+  background-color: white;
+  color: black;
+}
+
+form input:focus {
+  outline: none;
+}
+
+form button {
+  margin-top: 15px;
+  background-color: #a98467;
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  width: 100%;
+  font-size: 1.1em;
+  font-weight: bold;
+  cursor: pointer;
+  color: white;
+  transition: background-color 0.3s ease;
+}
+
+form button:hover {
+  background-color: #987961;
+}
+
+form h2 {
+  color: white;
+}
+
+.search-container {
+  display: flex;
+  align-items: center;
+  justify-content: right;
+  margin-top: 10px;
+  margin-right: 20px;
+}
+
+.search-container input {
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: white;
+  color: black;
+  font-size: 1em;
+  width: 400px;
+}
+
+.search-container input:focus {
+  outline: none;
+}
+
+.search-container button {
+  padding: 10px 15px;
+  margin-left: 5px;
+  border: none;
+  border-radius: 5px;
+  background-color: #a98467;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.search-container button:hover {
+  background-color: #987961;
 }

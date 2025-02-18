@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { createPlayer } from '../API/index.js';
 
-
 const NewPlayerForm = () => {
   const [name, setName] = useState("");
   const [imageUrl, setImageUrl] = useState("");
@@ -17,27 +16,22 @@ const NewPlayerForm = () => {
       breed,
       imageUrl, 
     };
-    // console.log("New player:", JSON.stringify(newPlayer, null, 2));
 
     try {
       const response = await createPlayer(newPlayer);
-      // console.log("Full API response:", response);
-      // const createdPlayer = response?.data?.newPlayer;
-      // console.log("Player object:", createdPlayer);
       const createdPlayer = response?.data?.newPlayer;
 
-      if (!createdPlayer|| !createdPlayer.id) {
+      if (!createdPlayer || !createdPlayer.id) {
         console.error("Invalid player object returned from API", response?.data);
         alert("Failed to create player. Please check the console.");
         return;
       }
 
-
-      alert(`Player "${createdPlayer.name}" created successfully!`);
+      alert(`Player "${createdPlayer.name}" added successfully!`);
       navigate(`/players/${createdPlayer.id}`);
     } catch (error) {
-        console.error("Error creating player:", error);
-        alert("Failed to create player. Please try again.");
+        console.error("Error adding player:", error);
+        alert("Failed to add player. Please try again.");
     }
   };
 
